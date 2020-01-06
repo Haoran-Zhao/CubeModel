@@ -1,0 +1,8 @@
+prefix=/home/haoran/cubes/devel
+
+Name: cubes_simulation
+Description: Description of cubes_simulation
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/haoran/cubes/devel/lib 
+Requires: 

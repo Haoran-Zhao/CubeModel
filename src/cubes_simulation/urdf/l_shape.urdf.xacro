@@ -1,0 +1,166 @@
+<?xml version='1.0'?>
+<robot name ='l_shape' xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:property name="side_len" value="0.01" />
+<xacro:property name="tilt_angle" value="0.785"/>
+
+<link name = "world"/>
+
+<joint name = "joint_fix" type = "fixed">
+<parent link = "world"/>
+<child link = "center"/>
+</joint>
+
+<link name = "center">
+<collision>
+  <origin xyz = "0 0 ${side_len/2}" rpy="0 0 0"/>
+  <geometry>
+    <box size="${side_len} ${side_len} ${side_len}"/> <!--3-->
+  </geometry>
+</collision>
+
+<visual>
+  <origin xyz="0 0 ${side_len/2}" rpy="0 0 0"/>
+  <geometry>
+    <box size="${side_len} ${side_len} ${side_len}"/>
+  </geometry>
+</visual>
+
+<inertial>
+  <origin xyz="0 0 ${side_len/2}" rpy="0 0 0" />
+  <mass value="0.05" />
+  <inertia
+    ixx="0.001" ixy="0.0"  ixz="0.0"
+    iyy="0.001" iyz="0.0"
+    izz="0.001" />
+</inertial>
+</link>
+
+<joint name = "upper_cube" type = "fixed">
+  <parent link="center"/>
+  <child link = "upper"/>
+</joint>
+
+<link name = "upper">
+<collision>
+  <origin xyz = "${side_len} 0 ${side_len/2}" rpy="0 0 0"/>
+  <geometry>
+    <box size="${side_len} ${side_len} ${side_len}"/> <!--3-->
+  </geometry>
+</collision>
+
+<visual>
+  <origin xyz="${side_len} 0 ${side_len/2}" rpy="0 0 0"/>
+  <geometry>
+    <box size="${side_len} ${side_len} ${side_len}"/>
+  </geometry>
+</visual>
+
+<inertial>
+  <origin xyz="${side_len} 0 ${side_len/2}" rpy="0 0 0" />
+  <mass value="0.05" />
+  <inertia
+    ixx="0.001" ixy="0.0"  ixz="0.0"
+    iyy="0.001" iyz="0.0"
+    izz="0.001" />
+</inertial>
+</link>
+
+
+<joint name = "lower_cube" type = "fixed">
+  <parent link="center"/>
+  <child link = "lower"/>
+</joint>
+
+<link name = "lower">
+  <collision>
+    <origin xyz = "-${side_len} 0 ${side_len/2}" rpy="0 0 0"/>
+    <geometry>
+      <box size="${side_len} ${side_len} ${side_len}"/> <!--3-->
+    </geometry>
+  </collision>
+
+  <visual>
+    <origin xyz="-${side_len} 0 ${side_len/2}" rpy="0 0 0"/>
+    <geometry>
+      <box size="${side_len} ${side_len} ${side_len}"/>
+    </geometry>
+  </visual>
+
+  <inertial>
+    <origin xyz="-${side_len} 0 ${side_len/2}" rpy="0 0 0" />
+    <mass value="0.05" />
+    <inertia
+      ixx="0.001" ixy="0.0"  ixz="0.0"
+      iyy="0.001" iyz="0.0"
+      izz="0.001" />
+  </inertial>
+</link>
+
+<joint name = "lower_right_cube" type = "fixed">
+  <parent link="lower"/>
+  <child link = "lower_right"/>
+</joint>
+
+<link name = "lower_right">
+<collision>
+<origin xyz = "${side_len} ${side_len} ${side_len/2}" rpy="0 0 0"/>
+<geometry>
+  <box size="${side_len} ${side_len} ${side_len}"/> <!--3-->
+</geometry>
+</collision>
+
+<visual>
+<origin xyz="${side_len} ${side_len} ${side_len/2}" rpy="0 0 0"/>
+<geometry>
+  <box size="${side_len} ${side_len} ${side_len}"/>
+</geometry>
+</visual>
+
+<inertial>
+<origin xyz="${side_len} ${side_len} ${side_len/2}" rpy="0 0 0" />
+<mass value="0.05" />
+<inertia
+  ixx="0.001" ixy="0.0"  ixz="0.0"
+  iyy="0.001" iyz="0.0"
+  izz="0.001" />
+</inertial>
+</link>
+
+<gazebo reference="center">
+<mu1>10</mu1>
+<mu2>10</mu2>
+<material>Gazebo/SkyBlue</material>
+<static>true</static>
+<maxVel>0</maxVel>
+<minDepth>0.001</minDepth>
+</gazebo>
+
+<gazebo reference="upper">
+<mu1>10</mu1>
+<mu2>10</mu2>
+<material>Gazebo/Blue</material>
+<static>true</static>
+<maxVel>0</maxVel>
+<minDepth>0.001</minDepth>
+</gazebo>
+
+<gazebo reference="lower">
+<mu1>10</mu1>
+<mu2>10</mu2>
+<material>Gazebo/Blue</material>
+<static>true</static>
+<maxVel>0</maxVel>
+<minDepth>0.001</minDepth>
+</gazebo>
+
+<gazebo reference="lower_right">
+<mu1>10</mu1>
+<mu2>10</mu2>
+<material>Gazebo/Red</material>
+<static>true</static>
+<maxVel>0</maxVel>
+<minDepth>0.001</minDepth>
+</gazebo>
+
+</robot>

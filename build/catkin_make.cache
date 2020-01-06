@@ -1,0 +1,2 @@
+cubes_simulation
+-DCATKIN_DEVEL_PREFIX=/home/haoran/cubes/devel -DCMAKE_INSTALL_PREFIX=/home/haoran/cubes/install -G Unix Makefiles

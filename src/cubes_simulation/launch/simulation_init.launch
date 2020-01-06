@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="paused" default="true" doc="Starts gazebo in paused mode" />
+  <arg name="gui" default="true" doc="Starts gazebo gui" />
+  <arg name="sim" default="true" />
+  <arg name="debug" default="false" />
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" default="worlds/empty.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+  <!-- Convert xacro and put on parameter server -->
+  <param name="robot_ws" command="$(find xacro)/xacro --inorder '$(find cubes_simulation)/urdf/workspace.urdf.xacro'" />
+  <node name="spawn_ws" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_ws -model workspace -x 0 -y 0 -z 0" />
+
+  <param name="robot_b" command="$(find xacro)/xacro --inorder '$(find cubes_simulation)/urdf/blue_cube.urdf.xacro'" />
+  <node name="spawn_cb1" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_b -model cube1 -x 0.015 -y 0.015 -z 0.00707 -R 0.785 -P 0 -Y 0" />
+  <node name="spawn_cb2" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_b -model cube2 -x 0.035 -y -0.025 -z 0.00707 -R 0.785 -P 0 -Y 0" />
+  <node name="spawn_cb3" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_b -model cube3 -x -0.025 -y 0.04 -z 0.00707 -R 0.785 -P 0 -Y 0" />
+
+  <param name="robot_r" command="$(find xacro)/xacro --inorder '$(find cubes_simulation)/urdf/red_cube.urdf.xacro'" />
+  <node name="spawn_cb4" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_r -model cube4 -x -0.01 -y -0.035 -z 0.00707 -R 0.785 -P 0 -Y 0" />
+  <node name="spawn_cb5" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_r -model cube5 -x 0.035 -y 0.03 -z 0.00707 -R 0.785 -P 0 -Y 0" />
+  <node name="spawn_cb6" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_r -model cube6 -x -0.04 -y 0.025 -z 0.00707 -R 0.785 -P 0 -Y 0" />
+  <!-- publisher node -->
+
+</launch>

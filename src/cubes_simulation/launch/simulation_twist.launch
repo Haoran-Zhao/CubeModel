@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="paused" default="true" doc="Starts gazebo in paused mode" />
+  <arg name="gui" default="true" doc="Starts gazebo gui" />
+  <arg name="sim" default="true" />
+  <arg name="debug" default="false" />
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" default="worlds/empty.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+  <!-- Convert xacro and put on parameter server -->
+  <param name="robot_ws" command="$(find xacro)/xacro --inorder '$(find cubes_simulation)/urdf/workspace.urdf.xacro'" />
+  <node name="spawn_ws" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_ws -model workspace -x 0 -y 0 -z 0" />
+
+  <param name="robot_t" command="$(find xacro)/xacro --inorder '$(find cubes_simulation)/urdf/twist.urdf.xacro'" />
+  <node name="spawn_l" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_t -model cubel -x 0 -y 0 -z 0.01414 -R 0 -P 0 -Y 0" />
+  <!-- publisher node -->
+
+</launch>
